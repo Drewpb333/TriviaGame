@@ -1,0 +1,52 @@
+/* change color later */
+html{
+    background: lightsteelblue;
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    overflow: hidden;
+}
+/* change colors later */
+.container{
+    width: 1000px;
+    height: 85%;
+    margin: 3% auto;
+    background: lightgoldenrodyellow;
+}
+
+.game-title{
+    height: 50px;
+    width: 800px;
+    margin: 10px auto 0;
+    font-size: 38px;
+    text-align: center;
+}
+
+
+.questions-and-answers{
+    height: 75%;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.answers{
+
+    float: left;
+}
+
+button, #time-remaining{
+    height: 45px;
+    width: 270px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: grey;
+}
+
+#time-remaining{
+    font-size: 24px;
+    text-align: center;
+    display: none;
+    padding: 10px;
+}

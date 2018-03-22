@@ -1,0 +1,25 @@
+**Template for TriviaGame
+
+Create global variables for correct answers, as well as incorrect answers.
+
+Create a questions array(or object?).
+
+Create a possible answers array.
+
+Create an answers array(or object?), with matching indices to the questions array.
+
+Use Math.Random to select a question, as well as an answer, from both arrays or objects?.
+
+Use Math.Random to determine order of questions, as well as possible answers(?).
+
+Use a conditional statement, and a setInterval method(30 seconds), to allow for time period for question
+to be answered.
+
+Correct answer is displayed for five seconds before proceeding to next slide.
+
+When mouse overs on answer choice, allow for button to change color.
+
+Correct answer choice erases content area and replaces it with "Correct!" and a meme.
+
+Incorrect answer choice erases content area and says "Sorry, the correct answer is " + meme.
+
