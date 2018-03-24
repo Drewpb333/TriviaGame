@@ -3,22 +3,22 @@ $(document).ready(function(){
     var numberOfIncorrectAnswers = 0;
     var questionSelection;
     var question;
-    var userChoice;
     var answer;
+    var startTimer;
     var timeRemaining = 30;
+    var correctResponse = 0;
+    var incorrectResponse = 0;
     var questionAndAnswerSelection = ["pet", "dog", "shark", "mammals", "reptiles", "birds"
-    , "zebras", "nationalBird", "komodoDragon"]; 
-    // ,"frog", "salamander","zoo", "dinosaur", 
-    // "monkey","pony", "puppy", "lion", "cheetah", "elephant", "hippo","gorilla","polarbear",
-    // "shark","dolphin","orca", "octopus", "tortoise", "crocodile", "yellowJacket", "ibis"];
+    , "zebras", "nationalBird", "komodoDragon", "frog"]; 
     var currentQuestionAndAnswerSelection = ["pet", "dog", "shark", "mammals", "reptiles", "birds"
-    , "zebras", "nationalBird", "komodoDragon"];
+    , "zebras", "nationalBird", "komodoDragon", "frog"];
+    var imgSrc = "./assets/images/" + questionSelection + ".jpg";
     var startGame = false;
 
     var questions = {
         pet: "What is the most popular pet in the world?",
         dog: "What do Rin Tin Tin, Lassie, and Snoopy all share in common?",
-        shark: "What is the name of the largest shark?",
+        shark: "What is the name of the largest shark species in the world?",
         mammals: "Which of the following is the largest mammal?",
         reptiles: "Which of the following describes reptiles?",
         birds: "Bird are oviparous, meaning that they share this characteristic with most fish, reptiles, and amphibians?",
@@ -26,58 +26,20 @@ $(document).ready(function(){
         nationalBird: "What is the national bird of the U.S.A.?",
         komodoDragon: "The Komodo dragon, the largest non-extinct lizard, can be found in which country?",
         frog: "Frogs belong to which class of vertebrates?",
-        // salamander: ,
-        // zoo: ,
-        // dinosaur: ,
-        // monkey: ,
-        // pony: ,
-        // puppy: ,
-        // lion: ,
-        // cheetah: ,
-        // elephant: ,
-        // hippo: ,
-        // gorilla: ,
-        // polarbear: ,
-        // shark: ,
-        // dolphin: ,
-        // orca: ,
-        // octopus: ,
-        // tortoise: ,
-        // crocodile: ,
-        // yellowJacket: ,
-        // ibis: ,
     }
 
     var answers = {
-        pet: ["Fish", "Cat", "Dog", "Snake"],
-        dog: ["They're all retrievers.", "They have their own TV shows.", "They have their own fragrances line.", "They're all labradors."],
-        shark: ["Great white shark", "Whale Shark", "Hammerhead shark", "Tiger shark"],
-        mammals: ["Elephant", "Blue whale", "Hippopotamus", "Giraffe"],
-        reptiles: ["Warm-Blooded", "Cold-blooded", "", "None of the above"],
-        birds: ["Cold-blooded", "Females lay eggs", "Ability to fly", ""],
-        zebras: ["Zebras can outrun lions.","Zebras sleep standing up.", "Zebras travel in large herds.","All of the above"],
-        nationalBird: ["Bald eagle", "Flamingo", "Cardinal", "Hawk"],
-        komodoDragon: ["Australia", "Philippines", "Japan", "Indonesia"],
-        frogs: []
+        pet: [["Fish", "Cat", "Dog", "Snake"], "Fish"],
+        dog: [["They're all retrievers.", "They have their own TV shows.", "They have their own fragrances line.", "They're all labradors."], "They have their own TV shows."],
+        shark: [["Great white shark", "Whale shark", "Hammerhead shark", "Tiger shark"], "Whale shark"],
+        mammals: [["Elephant", "Blue whale", "Hippopotamus", "Giraffe"], "Blue whale"],
+        reptiles: [["Warm-Blooded", "Cold-blooded", "They're only found in the western hemisphere.", "None of the above"], "Cold-blooded"],
+        birds: [["Cold-blooded", "Females lay eggs", "Ability to fly", "Ability to swim"], "Females lay eggs"],
+        zebras: [["Zebras can outrun lions.","Zebras sleep standing up.", "Zebras travel in large herds.","All of the above"], "All of the above"],
+        nationalBird: [["Bald eagle", "Flamingo", "Cardinal", "Hawk"], "Bald eagle"],
+        komodoDragon: [["Australia", "Philippines", "Japan", "Indonesia"], "Indonesia"],
+        frog: [["Mammals", "Amphibians", "Reptiles", "Fish"], "Amphibians"]
     }
-
-    //Not sure if I'll use this object
-    var correctAnswers = {
-        pet: "Fish",
-        dog: "They have their own TV shows.",
-        shark: "Whale shark",
-        mammals: "Blue whale",
-        reptiles: "Cold-blooded",
-        birds: "Females lay eggs",
-        zebras: "All of the above",
-        nationalBird: "Bald eagle",
-        komodoDragon: "Indonesia",
-        frogs: ""
-    }
-
-    console.log(questions);
-    console.log(answers);
-    console.log(correctAnswers);
 
     var questionsAndAnswers = $(".questions-and-answers");
     var questionDisplay = $("#question");
@@ -87,96 +49,132 @@ $(document).ready(function(){
     var answerDisplayFour = $("#answer4");
     var timeRemainingJQuery = $("#time-remaining");
 
-     //starts game
-     if(startGame == false){
-        $("#start-button").click(function(){
-            startGame = true;
-            setTimeout(function(){
-                // $(".questions-and-answers").empty();
-                randomQuestionSelection();
-                console.log(answers);
-            }, 2000);
-        }) 
-    }
+    // function correctOrIncorrect(){
+    //     var userChoice = $(this).attr("data-content");
+    //     console.log(userChoice);
+    //     if(userChoice === answer){
+    //         $(".questions-and-answers").html("<img src=" + imgSrc + "' alt='" +  + "'>Congratulations");
+    //         // setTimeout(nextQuestion(), 5000);
+    //         clearTimeout(startTimer);
+    //         correctResponse++;
+    //         randomQuestionSelection();
+    //     }
+    //     else{
+    //         $(".questions-and-answers").html("<img src=" + imgSrc + "' alt='" +  + "'>Wrong");
+    //         // setTimeout(nextQuestion(), 5000);
+    //         clearTimeout(startTimer);
+    //         incorrectResponse++;
+    //         randomQuestionSelection();
+    //     }   
+    // }
 
-    // hover effects
-    function colorChangeOnHover (btn){
-        $(btn).css("background-color", "blue");
-    }
-    function colorChangeOffHover(btn){
-        $(btn).css("background-color", "grey");
+     //starts game
+    if(startGame == false){
+        $(document).on("click", "#start-button", function(event){
+            event.preventDefault();
+            startGame = true;            
+            randomQuestionSelection();
+            $("#start-button").css("display", "none");
+        }) 
     }
 
     //comes up with new questions, assigns it to global variable, and removes question from array
     function randomQuestionSelection(){
-        var questionIndex = Math.floor(Math.random() * currentQuestionAndAnswerSelection.length);
+        // reset clock
+        timeRemaining = 30;
+        var questionIndex = Math.floor(Math.random() * (currentQuestionAndAnswerSelection.length - 1));
+        // console.log(questionIndex);
         questionSelection = currentQuestionAndAnswerSelection[questionIndex];
+        // console.log(questionSelection);
         question = questions[questionSelection];
-        answer = answers[questionSelection];
+        // console.log(question);
+        answerChoices = answers[questionSelection][0];
+        // console.log(answerChoices);
+        correctAnswer = answers[questionSelection][1];
+        // console.log(correctAnswer);
         currentQuestionAndAnswerSelection.splice(questionIndex, 1);
-        setTimeout(startClock, 5000);
+        // console.log(currentQuestionAndAnswerSelection);
+        // questionsAndAnswers.css("display", "none");
+        startClock();
+    }
+
+    function startTimer(){
+        while(timeRemaining > 0){
+            {setInterval( function(){
+                timeRemaining--;
+                $("#time-remaining").html("<h2>" + timeRemaining + "</h2>");
+            }, 1000)}
+        }
     }
 
     function startClock(){
-        // change html to Q and A
-        timeRemainingJQuery.css("display", "block");
-        questionsAndAnswers.css("display", "block");
-        questionDisplay.html(question);
-        console.log(question);
-        answerDisplayOne.html(answer[0]);
-        console.log(answer[0]);
-        answerDisplayTwo.html(answer[1]);
-        console.log(answer[1]);
-        answerDisplayThree.html(answer[2]);
-        answerDisplayFour.html(answer[3]);
-        console.log(answer);
-        //change button color on hover
-        colorChangeOnHover(answerDisplayOne);
-        colorChangeOffHover();
-        // $(".answers").on("hover", "#answer1", colorChange("#answer1")
-        // );("hover", "#answer2", colorChange("#answer2")
-        // );("hover", "#answer3", colorChange("#answer3")
-        // );("hover", "#answer4", colorChange("#answer4"));
-      
-        //Time Limit
-        var startTimer = function(){setInterval( function(){
-            timeRemaining--;
-            $("#time-remaining").html("<h3>" + timeRemaining + "</h3>");
-        }, 1000)}
-
-        startTimer();
-
-        $(".questions-and-answers").on("click", ".answers", function(){
-            var imgSrc = "../images/" + questionSelection + ".jpg";
+        $(document).ready(function(){
+            // clear q and a section
+            // change html to Q and A
+            $(".answers").css("display", "grid");
+            questionDisplay.html("<button>" + question + "</button>");
+            answerDisplayOne.append(answerChoices[0]);
+            answerDisplayTwo.append(answerChoices[1]);
+            answerDisplayThree.text(answerChoices[2]);
+            answerDisplayFour.text(answerChoices[3]);
+            //Time Limit
+            startTimer();
+            
+            $(".questions-and-answers").on("click", "#answer1", function(){
+                //  correctOrIncorrect();
+                var userChoice = correctAnswer;
+                console.log(userChoice);
             if(userChoice === answer){
-                $(".questions-and-answers").html("<img src=" + imgSrc + " alt='" + correctAnswers[questionSelection] + "'>Congratulations");
-                setTimeout(nextQuestion(), 5000);
+                $(".questions-and-answers").html("<img src=" + imgSrc + "' alt='" + correctAnswer + "'>Congratulations");
+                // setTimeout(nextQuestion(), 5000);
                 clearTimeout(startTimer);
+                correctResponse++;
+                randomQuestionSelection();
             }
             else{
-                $(".questions-and-answers").html("<img src=" + imgSrc + " alt='" + correctAnswers[questionSelection] + "'>Wrong");
+                $(".questions-and-answers").html("<img src=" + imgSrc + "' alt='" + correctAnswer + "'>Wrong");
+                // setTimeout(nextQuestion(), 5000);
+                clearTimeout(startTimer);
+                incorrectResponse++;
+                randomQuestionSelection();
+            }   
+            }).on("click", "#answer2", function(){
+                correctOrIncorrect();
+            }).on("click", "#answer3", function(){
+                correctOrIncorrect();
+            }).on("click", "#answer4", function(){
+                correctOrIncorrect();
+            })
+
+            if(timeRemaining === 0){
+                $(".questions-and-answers").html("<img src=" + imgSrc + "' alt='" + correctAnswer + "'>Wrong");
                 setTimeout(nextQuestion(), 5000);
                 clearTimeout(startTimer);
-            }            
-
-        if(timeRemaining === 0){
-            $(".questions-and-answers").html("<img src=" + imgSrc + " alt='" + correctAnswers[questionSelection] + "'>Wrong");
-            setTimeout(nextQuestion(), 5000);
-            clearTimeout(startTimer);
-        };
-        }) 
+                incorrectResponse++;
+                randomQuestionSelection();
+            };   
+        })
     }    
-
-    function nextQuestion(){
-        //new question segment
-        randomQuestionSelection();
-        setTimeout(function(){
-            $("#question").text = question;
-            $("#answer1").text = answer[0];
-            $("answer2").text = answer[1];
-            $("answer3").text = answer[2];
-            $("answer4").text = answer[3];
-            startClock();
-        }, 5000);
-    }
 });
+
+// console.log(correctResponse);
+// Reset Game
+// if((correctResponse + incorrectResponse) == 10){
+//     questionsAndAnswers.empty();
+//     questionsAndAnswers.append("<h2>GAME OVER!</h2>");
+//     questionsAndAnswers.append("<h5>Correct Responses: " + correctResponse + "</h5><br><h5>" + incorrectResponse + "</h5>")
+// }
+
+//     function nextQuestion(){
+//         //new question segment
+//         randomQuestionSelection();
+//         setTimeout(function(){
+//             $("#question").text = question;
+//             $("#answer1").text = answer[0];
+//             $("answer2").text = answer[1];
+//             $("answer3").text = answer[2];
+//             $("answer4").text = answer[3];
+//             startClock();
+//         }, 5000);
+//     }
+// });
