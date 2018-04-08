@@ -1,14 +1,22 @@
-var questionSelection;
-var question;
-var answer;
-var userChoice;
-var timeRemaining = 30;
-var correctResponse = 0;
-var incorrectResponse = 0;
-var totalResponses = correctResponse + incorrectResponse;
-var questionAndAnswerSelection = ["pet", "dog", "shark", "mammals", "reptiles", "birds", "zebras", "nationalBird", "komodoDragon", "frog"];
-var currentQuestionAndAnswerSelection = ["pet", "dog", "shark", "mammals", "reptiles", "birds", "zebras", "nationalBird", "komodoDragon", "frog"];
-var startGame = false;
+// var questionSelection;
+// var question;
+// var answer;
+// var userChoice;
+
+//variables for where dynamic content will be placed in index.html
+
+var questionsAndAnswers = $(".questions-and-answers");
+var questionDisplay = $("#question");
+var answerDisplayOne = $("#answer1");
+var answerDisplayTwo = $("#answer2");
+var answerDisplayThree = $("#answer3");
+var answerDisplayFour = $("#answer4");
+var displayQuestionsandTimer = $("#time-remaining, #answer1, #answer2, #answer3, #answer4");
+var timeRemainingJQuery = $("#time-remaining");
+var answerImage = $("#answer-image");
+
+
+var initTimeRemaining = 30;
 var timer;
 
 //Array for question, answers, correct answer, and images
@@ -66,18 +74,44 @@ var questions = [{
 
 
 //game logic
+var gameLogic = {
+
+    questions: questions,
+    currentQuestion: 0,
+    counter: initTimeRemaining,
+    correct: 0,
+    incorrect: 0,
+
+    startTimer: function () {
+        this.counter--;
+        timeRemainingJQuery.text(this.counter);
+        if (this.counter === 0) {
+            console.log("TIME UP");
+            this.timeUp();
+        }
+    },
+
+
+    nextQuestion: function () {
+
+        timer = setInterval(this.countdown.bind(this), 1000);
+
+        questionDisplay("<h2>" + questions[this.currentQuestion].question + "</h2>");
+
+        for (var i = 0; i < questions[this.currentQuestion].answers.length; i++) {
+            panel.append("<button class='answer-button' id='button' data-name='" + questions[this.currentQuestion].answers[i] +
+                "'>" + questions[this.currentQuestion].answers[i] + "</button>");
+        }
+    },
+
+    
+}
 
 
 
-var questionsAndAnswers = $(".questions-and-answers");
-var questionDisplay = $("#question");
-var answerDisplayOne = $("#answer1");
-var answerDisplayTwo = $("#answer2");
-var answerDisplayThree = $("#answer3");
-var answerDisplayFour = $("#answer4");
-var displayQuestionsandTimer = $("#time-remaining, #answer1, #answer2, #answer3, #answer4");
-var timeRemainingJQuery = $("#time-remaining");
-var answerImage = $("#answer-image");
+
+
+
 
 function newQuestion() {
     setTimeout(randomQuestionSelection, 5000);
@@ -129,10 +163,10 @@ function randomQuestionSelection() {
     answerImage.hide()
     displayQuestionsandTimer.show();
     timer = setInterval(function () {
-        timeRemaining--;
-        $("#time-remaining").html("Time remaining: " + timeRemaining);
+        initTimeRemaining--;
+        $("#time-remaining").html("Time remaining: " + initTimeRemaining);
     }, 1000)
-    timeRemaining = 30;
+    initTimeRemaining = 30;
     var questionIndex = Math.floor(Math.random() * (currentQuestionAndAnswerSelection.length - 1));
     // console.log(questionIndex);
     questionSelection = currentQuestionAndAnswerSelection[questionIndex];
@@ -181,7 +215,7 @@ function displayQandA() {
     })
 }
 
-if (timeRemaining === 0) {
+if (initTimeRemaining === 0) {
     userChoice = "";
     correctOrIncorrect();
 };
