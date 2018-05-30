@@ -1,21 +1,3 @@
-// // var questionSelection;
-// // var question;
-// // var answer;
-// // var userChoice;
-
-// //variables for where dynamic content will be placed in index.html
-
-// var questionsAndAnswers = $(".questions-and-answers");
-// var questionDisplay = $("#question");
-// var answerDisplayOne = $("#answer1");
-// var answerDisplayTwo = $("#answer2");
-// var answerDisplayThree = $("#answer3");
-// var answerDisplayFour = $("#answer4");
-// var displayQuestionsandTimer = $("#time-remaining, #answer1, #answer2, #answer3, #answer4");
-// var timeRemainingJQuery = $("#time-remaining");
-// var answerImage = $("#answer-image");
-
-
 var panel = $("#quiz-area");
 var countStartNumber = 30;
 
