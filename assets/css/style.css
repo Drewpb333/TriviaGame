@@ -6,7 +6,11 @@ body {
 
 body {
     text-align: center;
-    background: url("../images/jungleBackground.jpg");
+    background: url("../images/jungleBackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #wrapper {
@@ -62,7 +66,7 @@ h3 {
 }
 
 button:hover {
-    background: pink;
-    border: 2px solid blue;
+    background: rgb(34, 160, 18);
+    border: 2px solid black;
 }
 
