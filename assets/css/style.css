@@ -1,61 +1,89 @@
 /* change color later */
-html{
+
+html,
+body {
     height: 100%;
+    overflow-y: hidden;
 }
 
-body{
-    height: 100%;
-    overflow: hidden;
+body {
+    text-align: center;
     background: url("../images/jungleBackground.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
-
-
 
 /* change colors later */
-.container{
-    width: 75%;
-    height: 85%;
-    margin: 3% auto;
+
+#wrapper {
+    width: 960px;
+    height: 80%;
+    box-sizing: border-box;
+    margin: 2.5% auto;
     background: lightgoldenrodyellow;
-    opacity: .97;
 }
 
-.game-title{
-    height: 100px;
-    width: 800px;
+#sub-wrapper {
+    position: relative;
+    top: 15%;
+}
+
+button {
+    display: block;
+    width: 50%;
+    height: 20%;
     margin: 0 auto;
-    font-size: 38px;
-    text-align: center;
+    font-size: 42px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
 }
 
-.game-title img{
-    height: 100%;
-    width: 350px;
+img {
+    height: 200px;
 }
 
-.answers{
-    width: 350px;
-    height: 310px;
-    margin: 0 auto;
-    /* display: none; */
+h1 {
+    padding-top: 2.5%;
+    font-family: Geo, sans-serif;
+    font-size: 6.5em;
+    font-weight: bold;
+    color: blue;
 }
 
-#question{
+h2 {
+    margin-bottom: 25px;
+    font-size: 35px;
+}
+
+h3 {
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+#start {
+    margin-top: 10%;
+    background: pink;
+    border: 2px solid blue;
+}
+
+button:hover {
+    background: pink;
+    border: 2px solid blue;
+}
+
+/* 
+#question {
     text-align: center;
     font-size: 24px;
     margin: 20px 0;
 }
 
-.questions-and-answers{
+.questions-and-answers {
     height: 75%;
     width: 70%;
     margin: 0 auto;
 }
 
-.questions-and-answers img{
+.questions-and-answers img {
     margin: 50px auto 0;
 }
 
@@ -72,7 +100,8 @@ body{
     font-size: 32px;
 }
 
-button, #time-remaining{
+button,
+#time-remaining {
     height: 45px;
     width: 350px;
     margin-left: auto;
@@ -80,33 +109,41 @@ button, #time-remaining{
     background-color: grey;
 }
 
-
-#time-remaining{
+#time-remaining {
     font-size: 24px;
     text-align: center;
     /* display: none; */
-    padding: 10px;
+
+/* padding: 10px;
 }
 
-button:hover{
+button:hover {
     background-color: blue;
 }
 
-img{
+img {
     width: 220px;
     height: 220px;
     margin-left: auto;
     margin-right: auto;
 }
 
-#answer1, #answer2, #answer3{
+#answer1,
+#answer2,
+#answer3 {
     margin-bottom: 10px;
 }
 
-#time-remaining, #answer1, #answer2, #answer3, #answer4{
+#time-remaining,
+#answer1,
+#answer2,
+#answer3,
+#answer4 {
     display: none;
 }
 
-#play-again{
+#play-again {
     display: none;
 }
+
+*/ */
